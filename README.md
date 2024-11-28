@@ -1,6 +1,6 @@
 # IoT2-Webapp-QR-Code-Scanner
 
-![IoT QR Code Scanner Web App](/images/realtime-temperature-sensor-monitoring-webapp.png)
+![IoT QR Code Scanner Web App](/images/iot-qr-code-barcode-scanner-web-application.png)
 Merupakan Aplikasi Scanner QR Code/Barcode berbasis Web menggunakan IoT.
 
 ## Images
@@ -8,7 +8,7 @@ Merupakan Aplikasi Scanner QR Code/Barcode berbasis Web menggunakan IoT.
 Inilah Tampilan Sederhana dari Aplikasi Web Monitoring Sensor Suhu :
 \
 \
-![Realtime Temperature Sensor Monitoring App](./images/lorem-ipsum.jpg)
+![IoT QR Code Scanner Web App](./images/lorem-ipsum.jpg)
 
 ## Description
 
