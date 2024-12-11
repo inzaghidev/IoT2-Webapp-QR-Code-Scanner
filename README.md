@@ -12,17 +12,69 @@ Inilah Tampilan Sederhana dari Aplikasi Web Monitoring Sensor Suhu :
 
 ## Description
 
-**1. [Project Realtime Temperature Sensor GUI](./realtime-temperature-sensor-gui)**
+**1. [Project IoT QR Code Scanner](./realtime-temperature-sensor-gui)**
 
 Merupakan Project Aplikasi Monitoring Sensor Suhu Sederhana yang terdiri dari:
 
-- HTML
-- CSS
-- JavaScript
-- Bootstrap
-- jQuery
+- Web (HTML, CSS, JavaScript)
+- CSS : Bootstrap
+- Framework : Laravel
+- Python (OpenCV)
+- Arduino
 
-**2. [Project Realtime Temperature Sensor GUI Node.js](./realtime-temperature-sensor-gui-node)**
+**2. Folder Structure**
+
+Struktur Folder :
+
+```
+📁IoT2-WWebapp-QR-Code-Scanner/
+    ├── 📁arduino/
+    │   └── esp32-cam-barcode-scanner.ino              # File kode Arduino ESP32 CAM
+    ├── 📁barcode-scanner/                             # Backend Laravel untuk API dan Dashboard
+    │   ├── 📁app/
+    │   │   ├── 📁Http/
+    │   │   │   ├── 📁Controllers/
+    │   │   │   │   ├── 📁API/
+    │   │   │   │   │   ├── InventoryApiController.php # Controller untuk API
+    │   │   │   │   └── 📁Web/
+    │   │   │   │       └── InventoryController.php    # Controller untuk halaman produk
+    │   │   ├── 📁Models/
+    │   │   │   └── Inventory.php                      # Model untuk tabel inventory
+    │   │   ├── 📁Providers/
+    │   │   └── 📁Services/
+    │   ├── 📁config/
+    │   ├── 📁database/
+    │   │   ├── 📁factories/
+    │   │   ├── 📁migrations/
+    │   │   │   └── 2024_12_11_021910_create_inventory_table.php # Migration tabel inventory
+    │   │   └── 📁seeders/
+    │   │       └── InventorySeeder.php                # Seeder untuk data dummy inventory
+    │   ├── 📁public/
+    │   │   ├── 📁css/
+    │   │   │   └── style.css                          # File CSS
+    │   │   └── 📁js/
+    │   │       └── script.js                          # File JavaScript
+    │   ├── 📁resources/
+    │   │   └── 📁views/
+    │   │       ├── 📁layouts/
+    │   │       │   └── app.blade.php                  # Layout utama untuk Laravel Blade
+    │   │       ├── dashboard.blade.php                # Halaman dashboard
+    │   │       ├── products.blade.php                 # Halaman untuk data produk
+    │   │       ├── edit_product.blade.php             # Halaman edit produk
+    │   │       ├── update_product.blade.php           # Halaman update produk
+    │   │       └── delete_product.blade.php           # Halaman hapus produk (destroy)
+    │   ├── 📁routes/
+    │   │   ├── api.php                                # Endpoint untuk API
+    │   │   └── web.php                                # Route untuk halaman web
+    │   ├── 📁storage/
+    │   │── 📁tests/
+    │   └── .env
+    ├── 📁python-opencv/                               # Program Python OpenCV
+    │   └── barcode_scanner.py                         # Script Python untuk membaca QR Code
+    └── README.md                                      # Panduan proyek keseluruhan
+```
+
+**3. [Project Realtime Temperature Sensor GUI Node.js](./realtime-temperature-sensor-gui-node)**
 
 Merupakan Lanjutan dari Project Aplikasi Monitoring Sensor Suhu Sederhana (yang di Nomor 1) yang menggunakan Framework Node.js. Untuk Project ini, melakukan Update Data secara Realtime menggunakan WebSockets, dan Server-nya menggunakan JavaScript.
 
@@ -43,7 +95,7 @@ Kedua, Inisialisasikan proyek Node.js dan buat file package.json dengan menjalan
 
 > npm install express http socket.io
 
-**3. [Project Realtime Temperature Sensor GUI Laravel](./realtime-temperature-sensor-gui-laravel)**
+**4. [Project Realtime Temperature Sensor GUI Laravel](./realtime-temperature-sensor-gui-laravel)**
 
 Merupakan Lanjutan dari Project Aplikasi Monitoring Sensor Suhu Sederhana (yang di Nomor 1) yang menggunakan Framework Laravel. Untuk Project ini, melakukan Update Data secara Realtime menggunakan WebSockets, dan Server-nya menggunakan PHP.
 

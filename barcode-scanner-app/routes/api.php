@@ -2,11 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\InventoryApiController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
+// API untuk menyimpan data scan barang
+Route::post('/scan', [InventoryApiController::class, 'store']);
 
 // API untuk mendapatkan semua data barang
-Route::get('/inventory', [InventoryController::class, 'index']);
+Route::get('/inventory', [InventoryApiController::class, 'index']);

@@ -1,32 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>IoT Webapp QR Code Scanner</title>
-</head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Data QR Code Scanner</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Data QR Code</th>
-                    <th>Scanned At</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($qrCodes as $qrCode)
-                    <tr>
-                        <td>{{ $qrCode->id }}</td>
-                        <td>{{ $qrCode->data }}</td>
-                        <td>{{ $qrCode->scanned_at }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h1>Dashboard</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5>Data Barang</h5>
+                    <h3>4</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h5>Barang Masuk</h5>
+                    <h3>2</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5>Barang Keluar</h5>
+                    <h3>1</h3>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+@endsection
