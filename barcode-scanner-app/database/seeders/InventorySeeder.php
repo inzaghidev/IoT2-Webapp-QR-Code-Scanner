@@ -83,3 +83,17 @@ class InventorySeeder extends Seeder
         ]);
     }
 }
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // Panggil InventorySeeder untuk mengisi data ke tabel inventory
+        $this->call(InventorySeeder::class);
+
+        // Tambahkan seeder lain di sini jika diperlukan
+    }
+}
