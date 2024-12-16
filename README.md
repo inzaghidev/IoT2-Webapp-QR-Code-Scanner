@@ -57,7 +57,10 @@ Struktur Folder :
     │   ├── 📁resources/
     │   │   └── 📁views/
     │   │       ├── 📁layouts/
-    │   │       │   └── app.blade.php                  # Layout utama untuk Laravel Blade
+    │   │       │   └── main.blade.php                 # Layout utama untuk Laravel Blade
+    │   │       ├── partials/
+    │   │       │   ├── navbar.blade.php               # Layout Navbar untuk Laravel Blade
+    │   │       │   └── sidenav.blade.php              # Layout Side Navigation untuk Laravel Blade
     │   │       ├── dashboard.blade.php                # Halaman dashboard
     │   │       ├── products.blade.php                 # Halaman untuk data produk
     │   │       ├── edit_product.blade.php             # Halaman edit produk
