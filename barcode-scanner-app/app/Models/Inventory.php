@@ -17,9 +17,6 @@ class Inventory extends Model
         'nama_barang',
         'kategori_barang',
         'kode_barcode',
-        'img_barcode',
-        'quantity',
-        'harga_satuan',
     ];
 
     // Jika primary key tidak menggunakan `id`, bisa disesuaikan

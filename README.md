@@ -29,7 +29,11 @@ Struktur Folder :
 ```
 📁IoT2-WWebapp-QR-Code-Scanner/
     ├── 📁arduino/
-    │   └── esp32-cam-barcode-scanner.ino              # File kode Arduino ESP32 CAM
+    │   │── esp32-cam-barcode-scanner.ino              # File kode Arduino ESP32 CAM
+    │   │── ApiHandler.cpp                             # File C++ API Handling
+    │   │── ApiHandler.h                               # File Header API Handling
+    │   │── WiFiConfig.h                               # File Header Konfigurasi Wi-Fi
+    │   └── CameraConfig.h                             # File Header Konfigurasi Kamera
     ├── 📁barcode-scanner/                             # Backend Laravel untuk API dan Dashboard
     │   ├── 📁app/
     │   │   ├── 📁Http/
@@ -46,7 +50,7 @@ Struktur Folder :
     │   ├── 📁database/
     │   │   ├── 📁factories/
     │   │   ├── 📁migrations/
-    │   │   │   └── 2024_12_11_021910_create_inventory_table.php # Migration tabel inventory
+    │   │   │   └── 2024_12_11_021910_create_inventory_table.php    # Migration tabel inventory
     │   │   └── 📁seeders/
     │   │       └── InventorySeeder.php                # Seeder untuk data dummy inventory
     │   ├── 📁public/

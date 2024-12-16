@@ -1,21 +1,16 @@
 #include "ApiHandler.h"
+#include <WiFi.h> // Tambahkan ini untuk menggunakan fungsi WiFi
 
 String createJsonPayload(
     const String& nama_barang,
     const String& kategori_barang,
     const String& kode_barcode,
-    const String& img_barcode,
-    int quantity,
-    int harga_satuan
 ) {
     // Membuat dokumen JSON
     StaticJsonDocument<200> doc;
     doc["nama_barang"] = nama_barang;
     doc["kategori_barang"] = kategori_barang;
     doc["kode_barcode"] = kode_barcode;
-    doc["img_barcode"] = img_barcode;
-    doc["quantity"] = quantity;
-    doc["harga_satuan"] = harga_satuan;
 
     // Serialize JSON ke String
     String jsonString;

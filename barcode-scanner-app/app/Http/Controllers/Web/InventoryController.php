@@ -6,31 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 
-// class InventoryController extends Controller
-// {
-//     // Menampilkan halaman dashboard
-//     public function dashboard()
-//     {
-//         // Hitung total barang (jumlah item di tabel inventory)
-//         $total_barang = Inventory::sum('quantity'); // Menjumlahkan kolom 'quantity'
-
-//         // Hitung total kategori (kategori unik di tabel inventory)
-//         $total_kategori = Inventory::distinct('kategori_barang')->count('kategori_barang'); // Hitung kategori unik
-
-//         // Kirim data ke view dashboard
-//         return view('dashboard', compact('total_barang', 'total_kategori'));
-//     }
-
-//     // Menampilkan halaman daftar produk
-//     public function index()
-//     {
-//         $inventory = Inventory::all();
-//         return view('products', compact('inventory'));
-//     }
-// }
-
 class InventoryController extends Controller
 {
+    // Menampilkan halaman dashboard
+    public function dashboard()
+    {
+        // Hitung total barang (jumlah baris di tabel inventory)
+        $total_barang = Inventory::count(); // Menghitung jumlah total baris (barang)
+    
+        // Hitung total kategori (kategori unik di tabel inventory)
+        $total_kategori = Inventory::distinct('kategori_barang')->count('kategori_barang'); // Hitung kategori unik
+    
+        // Kirim data ke view dashboard
+        return view('dashboard', compact('total_barang', 'total_kategori'));
+    }
+
     // Menampilkan daftar produk
     public function index()
     {
@@ -51,9 +41,6 @@ class InventoryController extends Controller
             'nama_barang' => 'required|string|max:50',
             'kategori_barang' => 'required|string|max:50',
             'kode_barcode' => 'required|string|unique:inventory,kode_barcode|max:50',
-            'img_barcode' => 'nullable|string|max:50',
-            'quantity' => 'required|integer',
-            'harga_satuan' => 'required|integer',
         ]);
 
         Inventory::create($request->all());
@@ -75,9 +62,6 @@ class InventoryController extends Controller
             'nama_barang' => 'required|string|max:50',
             'kategori_barang' => 'required|string|max:50',
             'kode_barcode' => 'required|string|max:50',
-            'img_barcode' => 'nullable|string|max:50',
-            'quantity' => 'required|integer',
-            'harga_satuan' => 'required|integer',
         ]);
 
         $product = Inventory::findOrFail($id);

@@ -16,9 +16,6 @@ return new class extends Migration
             $table->string('nama_barang', 50); // Nama barang
             $table->string('kategori_barang', 50); // Kategori barang
             $table->string('kode_barcode', 50); // Kode barcode
-            $table->string('img_barcode', 50); // Gambar barcode
-            $table->integer('quantity'); // Jumlah barang
-            $table->integer('harga_satuan'); // Harga satuan barang
             $table->timestamp('create_date')->useCurrent(); // Waktu pembuatan
             $table->timestamps(); // Kolom created_at dan updated_at (opsional, default Laravel)
         });

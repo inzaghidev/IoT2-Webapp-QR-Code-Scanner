@@ -1,25 +1,36 @@
 <?php
 
+use App\Models\Inventory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventoryController;
 
 Route::get('/', function () {
-    return view('index'); // Halaman Dashboard Utama
-})->name('dashboard');
+    return view('index', [
+        "title" => "Dashboard"
+    ]);
+});
 
 Route::get('/dashboard', function () {
-    return view('index');
+    return view('index', [
+        "title" => "Dashboard"
+    ]);
 });
 
-Route::get('/produk', function () {
-    return view('products');
+Route::get('/produk', [InventoryController::class, 'index'], function () {
+    $inventory = Inventory::all();
+    
+    return view('products', [
+        "title" => "Products",
+        "posts" => $inventory,
+    ]);
 });
+
+Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 
 // Route::get('/', function () {
 //     return view('index');
 // });
-
-Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 
 // Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 // Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory.create');

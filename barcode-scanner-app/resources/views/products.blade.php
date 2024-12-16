@@ -1,12 +1,13 @@
 @extends('layouts.main')
 
 
-@section('content')
+@section('container')
     <h1>Daftar Produk</h1>
 
     <table border="1">
         <thead>
             <tr>
+                <th>ID Inventory</th>
                 <th>Nama Barang</th>
                 <th>Kategori Barang</th>
                 <th>Kode Barcode</th>
@@ -18,11 +19,11 @@
         <tbody>
             @forelse ($inventory as $item)
                 <tr>
+                    <td>{{ $item->id_inventory }}</td>
                     <td>{{ $item->nama_barang }}</td>
                     <td>{{ $item->kategori_barang }}</td>
                     <td>{{ $item->kode_barcode }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{ $item->harga_satuan }}</td>
+                    <td>{{ $item->create_date }}</td>
                     <td>
                         <a href="{{ route('inventory.edit', $item->id_inventory) }}">Edit</a>
                         <form action="{{ route('inventory.destroy', $item->id_inventory) }}" method="POST" style="display:inline;">

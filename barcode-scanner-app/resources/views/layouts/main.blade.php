@@ -23,7 +23,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
     />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <title>Inventory QR Code Scanner Dashboard</title>
+    <title>Inventory Barcode Scanner | {{ $title }}</title>
   </head>
   <body>
     @include('partials.navbar')
