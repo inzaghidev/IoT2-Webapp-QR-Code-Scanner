@@ -1,56 +1,64 @@
 import cv2
+import numpy as np
+import pyzbar.pyzbar as pyzbar
+import urllib.request
 import requests
-from pyzbar.pyzbar import decode  # For decoding both QR codes and barcodes
 
-# Initialize camera
-cap = cv2.VideoCapture(0)
+# URL ESP32-CAM (Ganti IP sesuai dengan alamat ESP32-CAM Anda)
+esp32_cam_url = "http://192.168.1.8/cam-hi.jpg"
 
-if not cap.isOpened():
-    print("Error: Unable to access the camera.")
-    exit()
+# API Endpoint Laravel
+api_endpoint = "http://127.0.0.1:8000/inventory"  # Ganti dengan URL API Laravel Anda
 
-# API endpoint URL
-# api_endpoint = "http://127.0.0.1:8000/api/inventory"
-api_endpoint = "http://127.0.0.1:8000/inventory"
+# Font untuk menampilkan teks
+font = cv2.FONT_HERSHEY_PLAIN
 
-print("Press 'q' to quit.")
+# Variabel untuk mencegah pengulangan data
+prev_data = ""
 
 while True:
-    # Capture a frame from the camera
-    ret, frame = cap.read()
-    
-    if not ret:
-        print("Failed to grab frame. Exiting...")
+    try:
+        # Ambil gambar dari ESP32-CAM
+        img_resp = urllib.request.urlopen(esp32_cam_url)
+        imgnp = np.array(bytearray(img_resp.read()), dtype=np.uint8)
+        frame = cv2.imdecode(imgnp, -1)
+
+        # Dekode QR Code atau Barcode
+        decoded_objects = pyzbar.decode(frame)
+        for obj in decoded_objects:
+            current_data = obj.data.decode("utf-8")
+
+            if current_data != prev_data:  # Hindari duplikasi data
+                print(f"Detected: {current_data}")
+
+                # Kirim data ke API Laravel
+                payload = {
+                    "kode_barcode": current_data
+                }
+                try:
+                    response = requests.post(api_endpoint, json=payload)
+                    if response.status_code == 200 or response.status_code == 201:
+                        print("Data berhasil dikirim ke server.")
+                    else:
+                        print(f"Error saat mengirim data: {response.text}")
+                except Exception as e:
+                    print(f"Gagal mengirim data ke server: {e}")
+
+                prev_data = current_data
+
+            # Tampilkan teks di layar
+            cv2.putText(frame, current_data, (50, 50), font, 2, (0, 255, 0), 3)
+
+        # Tampilkan video di jendela OpenCV
+        cv2.imshow("ESP32-CAM QR Code Scanner", frame)
+
+        # Tekan 'q' untuk keluar
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    except Exception as e:
+        print(f"Error: {e}")
         break
 
-    # Decode QR Code or Barcode
-    detected_data = decode(frame)
-    for obj in detected_data:
-        # Extract the decoded data
-        data = obj.data.decode("utf-8")
-        print(f"Detected: {data}")
-
-        # Prepare the data payload for API request
-        payload = {"barcode": data}
-
-        try:
-            # Send HTTP POST request to Laravel API
-            response = requests.post(api_endpoint, json=payload, timeout=10)
-            
-            if response.status_code == 200:
-                print(f"Data sent successfully: {response.json()}")
-            else:
-                print(f"Failed to send data. Status code: {response.status_code}, Response: {response.text}")
-        except Exception as e:
-            print(f"Error occurred while sending data: {e}")
-
-    # Display the current frame
-    cv2.imshow("QR Code and Barcode Scanner", frame)
-
-    # Exit on pressing 'q'
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# Release the camera and close OpenCV windows
-cap.release()
+# Menutup semua jendela
 cv2.destroyAllWindows()

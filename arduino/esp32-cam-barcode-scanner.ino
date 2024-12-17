@@ -1,51 +1,68 @@
-#include "WiFiConfig.h"
-#include "ApiHandler.h"
-#include "CameraConfig.h"
-#include <ArduinoJson.h>
+#include <WebServer.h>
+#include <WiFi.h>
+#include <esp32cam.h>
+
+// Kredensial WiFi
+// const char* WIFI_SSID = "Pradita University";
+// const char* WIFI_PASS = "KampusPradita";
+
+const char* WIFI_SSID = "Inzaghi";
+const char* WIFI_PASS = "cemara32";
+
+WebServer server(80);
+
+// Resolusi gambar
+static auto hiRes = esp32cam::Resolution::find(800, 600);
+
+void serveJpg()
+{
+  auto frame = esp32cam::capture();
+  if (frame == nullptr) {
+    Serial.println("CAPTURE FAIL");
+    server.send(503, "", "");
+    return;
+  }
+
+  Serial.printf("CAPTURE OK %dx%d %db\n", frame->getWidth(), frame->getHeight(),
+                static_cast<int>(frame->size()));
+  server.setContentLength(frame->size());
+  server.send(200, "image/jpeg");
+  WiFiClient client = server.client();
+  frame->writeTo(client);
+}
 
 void setup() {
-    Serial.begin(115200);
-    connectToWiFi();
-    Serial.println("Inisialisasi selesai.");
+  Serial.begin(115200);
+  Serial.println();
+
+  // Konfigurasi kamera
+  using namespace esp32cam;
+  Config cfg;
+  cfg.setPins(pins::AiThinker);
+  cfg.setResolution(hiRes);
+  cfg.setBufferCount(2);
+  cfg.setJpeg(80);
+
+  bool ok = Camera.begin(cfg);
+  Serial.println(ok ? "CAMERA OK" : "CAMERA FAIL");
+
+  // Hubungkan ke WiFi
+  WiFi.persistent(false);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi connected!");
+  Serial.print("ESP32-CAM URL: http://");
+  Serial.println(WiFi.localIP());
+
+  // Endpoint gambar
+  server.on("/cam-hi.jpg", serveJpg);
+  server.begin();
 }
 
 void loop() {
-    String barcode = "1234567890123"; // Simulasi kode barcode
-    sendDataToApi(barcode);
-    delay(10000); // Kirim ulang setiap 10 detik
+  server.handleClient();
 }
-
-// void setup() {
-//     Serial.begin(115200);
-
-//     // Hubungkan ke WiFi
-//     connectToWiFi();
-
-//     // Inisialisasi kamera
-//     if (!initCamera()) { // Pastikan fungsi initCamera dikenali
-//         Serial.println("Gagal menginisialisasi kamera!");
-//         while (true); // Hentikan program jika kamera gagal diinisialisasi
-//     }
-
-//     Serial.println("Kamera berhasil diinisialisasi!");
-// }
-
-// void loop() {
-//     // Simulasi QR Code hasil pemindaian
-//     String scannedQRCode = "1234567890123"; // Ganti dengan data QR Code yang nyata
-
-//     // Data JSON untuk dikirim ke API
-//     String jsonData = createJsonPayload(
-//         "Contoh Barang",
-//         "Contoh Kategori",
-//         scannedQRCode,
-//         "barcode_image.png",
-//         10,
-//         1500
-//     );
-
-//     // Kirim data ke API Laravel
-//     sendDataToApi(jsonData);
-
-//     delay(10000); // Tunggu 10 detik sebelum mengirim ulang
-// }

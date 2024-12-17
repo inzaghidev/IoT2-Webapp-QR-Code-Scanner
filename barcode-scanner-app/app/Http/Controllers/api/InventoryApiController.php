@@ -20,7 +20,8 @@ class InventoryApiController extends Controller
         $request->validate([
             'nama_barang' => 'required|string|max:50',
             'kategori_barang' => 'required|string|max:50',
-            'kode_barcode' => 'required|string|max:50|unique:inventory,kode_barcode',
+            'kode_barcode' => $request->kode_barcode,
+            // 'kode_barcode' => 'required|string|max:50|unique:inventory,kode_barcode',
         ]);
 
         Inventory::create($request->all());
