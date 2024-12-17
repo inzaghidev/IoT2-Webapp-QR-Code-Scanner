@@ -6,7 +6,7 @@
 
 // Endpoint Laravel API
 // const char* serverName = "http://127.0.0.1:8000/api/inventory";
-const char* serverName = "http://127.0.0.1:8000/produk";
+const char* serverName = "http://127.0.0.1:8000/inventory";
 
 // Fungsi untuk membuat JSON payload
 String createJsonPayload(

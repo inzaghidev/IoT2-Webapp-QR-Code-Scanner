@@ -11,7 +11,7 @@ if not cap.isOpened():
 
 # API endpoint URL
 # api_endpoint = "http://127.0.0.1:8000/api/inventory"
-api_endpoint = "http://127.0.0.1:8000/produk"
+api_endpoint = "http://127.0.0.1:8000/inventory"
 
 print("Press 'q' to quit.")
 
