@@ -6,8 +6,6 @@ Merupakan Aplikasi Scanner QR Code/Barcode berbasis Web menggunakan IoT.
 ## Images
 
 Inilah Tampilan Dashboard dari Aplikasi Scanner Barcode Inventory :
-\
-\
 
 1. Homepage
 
