@@ -2,7 +2,8 @@
 
 use App\Models\Inventory;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\Web\InventoryController; // Update namespace
+use App\Http\Controllers\Api\InventoryApiController;
 
 Route::get('/', function () {
     return view('index', [
@@ -10,41 +11,22 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return view('index', [
-        "title" => "Dashboard"
-    ]);
-});
+Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/produk', [InventoryController::class, 'index'], function () {
-    $inventory = Inventory::all();
-    
-    return view('products', [
-        "title" => "Products",
-        "posts" => $inventory,
-    ]);
-});
-
-Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
-Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
-
-// Route::get('/', function () {
-//     return view('index');
+// Route::get('/dashboard', function () {
+//     return view('index', [
+//         "title" => "Dashboard"
+//     ]);
 // });
 
-// Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
-// Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory.create');
-// Route::post('/inventory', [InventoryController::class, 'store'])->name('inventory.store');
-// Route::get('/inventory/{id}/edit', [InventoryController::class, 'edit'])->name('inventory.edit');
-// Route::put('/inventory/{id}', [InventoryController::class, 'update'])->name('inventory.update');
-// Route::delete('/inventory/{id}', [InventoryController::class, 'destroy'])->name('inventory.destroy');
+// Perbaiki namespace InventoryController
+Route::get('/produk', [InventoryController::class, 'index'])->name('inventory.index');
 
+Route::post('/inventory', [InventoryApiController::class, 'store']); // API untuk menyimpan data
+Route::get('/inventory', [InventoryApiController::class, 'index']); // API untuk mendapatkan data
 
-// Route::prefix('inventory')->group(function () {
-//     Route::get('/', [InventoryController::class, 'index'])->name('inventory.index'); // Halaman daftar produk
-//     Route::get('/create', [InventoryController::class, 'create'])->name('inventory.create'); // Halaman tambah produk
-//     Route::post('/', [InventoryController::class, 'store'])->name('inventory.store'); // Proses tambah produk
-//     Route::get('/{id}/edit', [InventoryController::class, 'edit'])->name('inventory.edit'); // Halaman edit produk
-//     Route::put('/{id}', [InventoryController::class, 'update'])->name('inventory.update'); // Proses update produk
-//     Route::delete('/{id}', [InventoryController::class, 'destroy'])->name('inventory.destroy'); // Hapus produk
-// });
+Route::get('/inventory/{id}/edit', [InventoryController::class, 'edit'])->name('inventory.edit'); // Route untuk halaman edit
+Route::put('/inventory/{id}', [InventoryController::class, 'update'])->name('inventory.update'); // Route untuk update data
+
+// Route untuk menghapus produk
+Route::delete('/inventory/{id}', [InventoryController::class, 'destroy'])->name('inventory.destroy');

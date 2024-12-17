@@ -4,8 +4,11 @@
 #include <WiFi.h>
 
 // Kredensial WiFi
-const char* ssid = "Pradita University";     // Ganti dengan SSID WiFi Anda
-const char* password = "KampusPradita";      // Ganti dengan password WiFi Anda
+// const char* ssid = "Pradita University";
+// const char* password = "KampusPradita";
+
+const char* ssid = "Inzaghi";
+const char* password = "cemara32";
 
 // Fungsi untuk menghubungkan ESP32 ke WiFi
 void connectToWiFi() {

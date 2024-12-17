@@ -1,49 +1,21 @@
-#include "ApiHandler.h"
-#include <WiFi.h> // Tambahkan ini untuk menggunakan fungsi WiFi
+#ifndef API_HANDLER_H
+#define API_HANDLER_H
+
+#include <ArduinoJson.h>
+#include <HTTPClient.h>
 
 // Endpoint Laravel API
-const char* serverName = "http://127.0.0.1:8000/api/inventory";
+// const char* serverName = "http://127.0.0.1:8000/api/inventory";
+const char* serverName = "http://127.0.0.1:8000/produk";
 
+// Fungsi untuk membuat JSON payload
 String createJsonPayload(
     const String& nama_barang,
     const String& kategori_barang,
-    const String& kode_barcode,
-) {
-    // Membuat dokumen JSON
-    StaticJsonDocument<200> doc;
-    doc["nama_barang"] = nama_barang;
-    doc["kategori_barang"] = kategori_barang;
-    doc["kode_barcode"] = kode_barcode;
+    const String& kode_barcode
+);
 
-    // Serialize JSON ke String
-    String jsonString;
-    serializeJson(doc, jsonString);
-    return jsonString;
-}
+// Fungsi untuk mengirim data ke API
+void sendDataToApi(String barcode);
 
-void sendDataToApi(const String& jsonData) {
-    if (WiFi.status() == WL_CONNECTED) { // Periksa koneksi WiFi
-        HTTPClient http;
-
-        // Konfigurasi HTTP POST
-        http.begin(serverName);
-        http.addHeader("Content-Type", "application/json");
-
-        // Kirim data JSON melalui POST request
-        int httpResponseCode = http.POST(jsonData);
-
-        if (httpResponseCode > 0) {
-            String response = http.getString();
-            Serial.println("Data berhasil dikirim!");
-            Serial.println("Response:");
-            Serial.println(response);
-        } else {
-            Serial.print("Error saat mengirim data: ");
-            Serial.println(httpResponseCode);
-        }
-
-        http.end();
-    } else {
-        Serial.println("WiFi tidak terhubung.");
-    }
-}
+#endif // API_HANDLER_H

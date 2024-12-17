@@ -8,12 +8,13 @@
         <li class="breadcrumb-item active">Dashboard</li>
       </ol>
       <div class="row">
-      <div class="col-xl-4 col-md-6">
+      <div class="col-xl-6 col-md-6">
         <div class="card bg-primary text-white mb-4">
           <div class="card-body">
             <i class="col-1 fa-solid fa-box"></i>
             <div class="col-7">Kategori Barang</div>
-            <h2 class="col-4">6</h2>
+            {{-- <h2 class="col-4">6</h2> --}}
+            <h2 class="col-4">{{ $total_kategori ?? 'Data tidak tersedia' }}</h2>
           </div>
           <div
             class="card-footer d-flex align-items-center justify-content-between"
@@ -27,12 +28,13 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-4 col-md-6">
+      <div class="col-xl-6 col-md-6">
         <div class="card bg-success text-white mb-4">
           <div class="card-body">
             <i class="fa-solid fa-arrow-up-from-bracket"></i>
-            <div class="col-7">Barang Masuk</div>
-            <h2 class="col-4">20</h2>
+            <div class="col-7">Total Barang</div>
+            {{-- <h2 class="col-4">20</h2> --}}
+            <h2 class="col-4">{{ $total_barang ?? 'Data tidak tersedia' }}</h2>
           </div>
           <div
             class="card-footer d-flex align-items-center justify-content-between"

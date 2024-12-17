@@ -1,10 +1,9 @@
 #include "ApiHandler.h"
-#include <WiFi.h> // Tambahkan ini untuk menggunakan fungsi WiFi
 
 String createJsonPayload(
     const String& nama_barang,
     const String& kategori_barang,
-    const String& kode_barcode,
+    const String& kode_barcode
 ) {
     // Membuat dokumen JSON
     StaticJsonDocument<200> doc;
@@ -18,29 +17,27 @@ String createJsonPayload(
     return jsonString;
 }
 
-void sendDataToApi(const String& jsonData) {
-    if (WiFi.status() == WL_CONNECTED) {
-        HTTPClient http;
+void sendDataToApi(String barcode) {
+    HTTPClient http;
 
-        // Konfigurasi HTTP POST
-        http.begin(serverName);
-        http.addHeader("Content-Type", "application/json");
+    // Mulai koneksi HTTP ke API
+    http.begin(serverName);
+    http.addHeader("Content-Type", "application/json");
 
-        // Kirim data JSON melalui POST request
-        int httpResponseCode = http.POST(jsonData);
+    // Membuat JSON payload
+    String payload = createJsonPayload("Barang ESP32", "Otomatis", barcode);
+    Serial.println("Payload: " + payload);
 
-        if (httpResponseCode > 0) {
-            String response = http.getString();
-            Serial.println("Data berhasil dikirim!");
-            Serial.println("Response:");
-            Serial.println(response);
-        } else {
-            Serial.print("Error saat mengirim data: ");
-            Serial.println(httpResponseCode);
-        }
+    // Kirim data ke API
+    int httpResponseCode = http.POST(payload);
 
-        http.end();
+    if (httpResponseCode > 0) {
+        String response = http.getString();
+        Serial.println("Response dari server: " + response);
     } else {
-        Serial.println("WiFi tidak terhubung.");
+        Serial.print("Error saat mengirim data. Kode: ");
+        Serial.println(httpResponseCode);
     }
+
+    http.end(); // Akhiri koneksi HTTP
 }

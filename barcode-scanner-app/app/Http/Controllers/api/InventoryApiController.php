@@ -11,25 +11,20 @@ class InventoryApiController extends Controller
     // API untuk mendapatkan semua data barang
     public function index()
     {
-        $inventory = Inventory::all();
-        return response()->json($inventory);
+        return response()->json(Inventory::all(), 200);
     }
 
     // API untuk menyimpan data scan barang
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'nama_barang' => 'required|string|max:50',
             'kategori_barang' => 'required|string|max:50',
-            'kode_barcode' => 'required|string|unique:inventory,kode_barcode|max:50',
+            'kode_barcode' => 'required|string|max:50|unique:inventory,kode_barcode',
         ]);
 
-        $inventory = Inventory::create($validatedData);
+        Inventory::create($request->all());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data berhasil disimpan!',
-            'data' => $inventory
-        ], 201);
+        return response()->json(['message' => 'Data berhasil disimpan!'], 201);
     }
 }

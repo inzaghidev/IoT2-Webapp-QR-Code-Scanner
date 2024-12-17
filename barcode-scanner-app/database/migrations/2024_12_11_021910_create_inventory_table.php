@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory', function (Blueprint $table) {
-            $table->id('id_inventory'); // Primary key (auto-increment)
-            $table->string('nama_barang', 50); // Nama barang
-            $table->string('kategori_barang', 50); // Kategori barang
-            $table->string('kode_barcode', 50); // Kode barcode
-            $table->timestamp('create_date')->useCurrent(); // Waktu pembuatan
-            $table->timestamps(); // Kolom created_at dan updated_at (opsional, default Laravel)
+            $table->id('id_inventory');
+            $table->string('nama_barang', 50);
+            $table->string('kategori_barang', 50);
+            $table->string('kode_barcode', 50);
+            $table->timestamps();
         });
     }
 
