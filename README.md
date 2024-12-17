@@ -5,10 +5,17 @@ Merupakan Aplikasi Scanner QR Code/Barcode berbasis Web menggunakan IoT.
 
 ## Images
 
-Inilah Tampilan Sederhana dari Aplikasi Web Monitoring Sensor Suhu :
+Inilah Tampilan Dashboard dari Aplikasi Scanner Barcode Inventory :
 \
 \
-![IoT QR Code Scanner Web App](./images/lorem-ipsum.jpg)
+
+1. Homepage
+
+![IoT QR Code Scanner Web App (Homepage Dashboard)](./images/main-dashboard-barcode-inventory-scanner.jpg)
+
+2. Products
+
+![IoT QR Code Scanner Web App (Products Dashboard)](./images/products-dashboard-barcode-inventory-scanner.jpg)
 
 ## Description
 
