@@ -3,11 +3,8 @@
 #include <esp32cam.h>
 
 // Kredensial WiFi
-// const char* WIFI_SSID = "Pradita University";
-// const char* WIFI_PASS = "KampusPradita";
-
-const char* WIFI_SSID = "Inzaghi";
-const char* WIFI_PASS = "cemara32";
+const char* WIFI_SSID = "Pradita University";  // Ganti dengan WiFi Anda
+const char* WIFI_PASS = "KampusPradita";      // Ganti dengan password WiFi Anda
 
 WebServer server(80);
 

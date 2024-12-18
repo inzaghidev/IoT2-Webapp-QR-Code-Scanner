@@ -11,7 +11,7 @@ class InventoryController extends Controller
     // Menampilkan daftar produk
     public function index()
     {
-        $inventory = Inventory::all();
+        $inventory = Inventory::all();  // Ambil semua data produk
         $title = "Daftar Produk"; // Tambahkan variabel title
     
         return view('products', compact('inventory', 'title'));
@@ -39,52 +39,56 @@ class InventoryController extends Controller
     // Proses penyimpanan produk baru
     public function store(Request $request)
     {
+        // Validasi input untuk memastikan data barcode ada
         $request->validate([
+            'kode_barcode' => 'required|string|unique:inventory,kode_barcode|max:50',
             'nama_barang' => 'required|string|max:50',
             'kategori_barang' => 'required|string|max:50',
-            'kode_barcode' => 'required|string|unique:inventory,kode_barcode|max:50',
         ]);
 
-        Inventory::create($request->all());
+        // Menambahkan data ke dalam database
+        $inventory = Inventory::create([
+            'kode_barcode' => $request->kode_barcode,
+            'nama_barang' => $request->nama_barang,
+            'kategori_barang' => $request->kategori_barang,
+        ]);
 
-        return redirect()->route('inventory.index')->with('success', 'Produk berhasil ditambahkan!');
+        return response()->json([
+            'message' => 'Data berhasil disimpan!',
+            'data' => $inventory
+        ], 201);
     }
 
     // Halaman untuk mengedit produk
     public function edit($id)
     {
-        // Cari data berdasarkan ID
-        $product = Inventory::findOrFail($id);
-
-        // Kirim data ke view edit_product
-        return view('edit_product', compact('product'));
+        $inventory = Inventory::findOrFail($id); // Ambil satu record berdasarkan ID
+    
+        return view('inventory.edit', compact('inventory')); // Kirim data produk ke view
     }
 
-    // Proses update produk
+    // Menyimpan data yang diubah
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
-            'nama_barang' => 'required|string|max:50',
-            'kategori_barang' => 'required|string|max:50',
-            'kode_barcode' => 'required|string|max:50|unique:inventory,kode_barcode,'.$id.',id_inventory',
+            'kategori_barang' => 'required|string|max:255',
+            'jumlah' => 'required|integer',
         ]);
-    
-        // Update data produk
-        $product = Inventory::findOrFail($id);
-        $product->update($request->all());
-    
-        return redirect()->route('inventory.index')->with('success', 'Produk berhasil diperbarui!');
+
+        $inventory = Inventory::findOrFail($id);
+        $inventory->kategori_barang = $request->input('kategori_barang');
+        $inventory->jumlah = $request->input('jumlah');
+        $inventory->save();
+
+        return redirect()->route('dashboard')->with('success', 'Data berhasil diubah!');
     }
 
     // Proses menghapus produk
     public function destroy($id)
     {
-        // Cari produk berdasarkan ID dan hapus
-        $product = Inventory::findOrFail($id);
-        $product->delete();
+        $inventory = Inventory::findOrFail($id);
+        $inventory->delete();
     
-        // Redirect kembali ke halaman produk dengan pesan sukses
         return redirect()->route('inventory.index')->with('success', 'Produk berhasil dihapus!');
     }
 }

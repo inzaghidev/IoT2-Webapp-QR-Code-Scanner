@@ -66,7 +66,7 @@ Struktur Folder :
     │   │       ├── partials/
     │   │       │   ├── navbar.blade.php               # Layout Navbar untuk Laravel Blade
     │   │       │   └── sidenav.blade.php              # Layout Side Navigation untuk Laravel Blade
-    │   │       ├── dashboard.blade.php                # Halaman dashboard
+    │   │       ├── index.blade.php                    # Halaman dashboard utama
     │   │       ├── products.blade.php                 # Halaman untuk data produk
     │   │       ├── edit_product.blade.php             # Halaman edit produk
     │   │       ├── update_product.blade.php           # Halaman update produk

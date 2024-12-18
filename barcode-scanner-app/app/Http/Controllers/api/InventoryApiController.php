@@ -14,17 +14,18 @@ class InventoryApiController extends Controller
         return response()->json(Inventory::all(), 200);
     }
 
-    // API untuk menyimpan data scan barang
+    // API untuk menyimpan data scan barcode
     public function store(Request $request)
     {
         $request->validate([
-            'nama_barang' => 'required|string|max:50',
-            'kategori_barang' => 'required|string|max:50',
-            'kode_barcode' => $request->kode_barcode,
-            // 'kode_barcode' => 'required|string|max:50|unique:inventory,kode_barcode',
+            'kode_barcode' => 'required|string|max:50|unique:inventory,kode_barcode',
         ]);
 
-        Inventory::create($request->all());
+        Inventory::create([
+            'kode_barcode' => $request->kode_barcode,
+            'nama_barang' => 'Barang Baru',  // Sesuaikan nama barang sesuai kebutuhan
+            'kategori_barang' => 'Kategori Baru',  // Sesuaikan kategori barang
+        ]);
 
         return response()->json(['message' => 'Data berhasil disimpan!'], 201);
     }

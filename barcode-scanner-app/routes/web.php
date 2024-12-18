@@ -11,7 +11,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
+// Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [InventoryController::class, 'dashboard']);
 
 // Route::get('/dashboard', function () {
 //     return view('index', [

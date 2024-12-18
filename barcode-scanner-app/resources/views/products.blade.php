@@ -48,14 +48,12 @@
                                 <td>{{ $item->kode_barcode }}</td>
                                 <td>{{ $item->create_date }}</td>
                                 <td>
-                                    <a href="{{ route('inventory.edit', $item->id_inventory) }}" class="btn btn-primary">Edit</a>
-                                    <a class="btn btn-danger">
-                                        <form action="{{ route('inventory.destroy', $item->id_inventory) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit">Hapus</button>
-                                        </form>
-                                    </a>
+                                    <a href="{{ route('inventory.edit', $item->id_inventory) }}" class="btn btn-warning">Edit</a>
+                                    <form action="{{ route('inventory.destroy', $item->id_inventory) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty
