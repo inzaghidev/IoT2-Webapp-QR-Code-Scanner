@@ -68,6 +68,7 @@ Struktur Folder :
     │   │       │   └── sidenav.blade.php              # Layout Side Navigation untuk Laravel Blade
     │   │       ├── index.blade.php                    # Halaman dashboard utama
     │   │       ├── products.blade.php                 # Halaman untuk data produk
+    │   │       ├── scanner.blade.php                  # Halaman untuk tampilan produk yang di scan
     │   │       ├── edit_product.blade.php             # Halaman edit produk
     │   │       ├── update_product.blade.php           # Halaman update produk
     │   │       └── delete_product.blade.php           # Halaman hapus produk (destroy)

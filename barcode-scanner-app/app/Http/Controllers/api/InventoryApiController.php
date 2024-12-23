@@ -17,16 +17,25 @@ class InventoryApiController extends Controller
     // API untuk menyimpan data scan barcode
     public function store(Request $request)
     {
+        // Validate the incoming request data
         $request->validate([
             'kode_barcode' => 'required|string|max:50|unique:inventory,kode_barcode',
+            'nama_barang' => 'required|string|max:50',
+            'kategori_barang' => 'required|string|max:50',
         ]);
 
-        Inventory::create([
-            'kode_barcode' => $request->kode_barcode,
-            'nama_barang' => 'Barang Baru',  // Sesuaikan nama barang sesuai kebutuhan
-            'kategori_barang' => 'Kategori Baru',  // Sesuaikan kategori barang
+        // Store the data in the database
+        $inventory = Inventory::create([
+            'kode_barcode' => $request->input('kode_barcode'),
+            'nama_barang' => $request->input('nama_barang'),
+            'kategori_barang' => $request->input('kategori_barang'),
         ]);
 
-        return response()->json(['message' => 'Data berhasil disimpan!'], 201);
+        // Return a JSON response
+        return response()->json([
+            'success' => true,
+            'message' => 'Data successfully saved!',
+            'data' => $inventory,
+        ], 201);
     }
 }

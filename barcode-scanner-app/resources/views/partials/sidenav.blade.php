@@ -15,6 +15,12 @@
             </div>
             Produk
           </a>
+          <a class="nav-link" href="/scanner">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-qrcode"></i>
+            </div>
+            Scanner
+          </a>
         </div>
       </div>
       <div class="sb-sidenav-footer">

@@ -7,3 +7,4 @@ use App\Http\Controllers\Api\InventoryApiController;
 // Routing API untuk IoT QR Code Scanner
 Route::post('/scan', [InventoryApiController::class, 'store'])->name('api.scan.store'); // Endpoint untuk menyimpan data QR Code
 Route::get('/inventory', [InventoryApiController::class, 'index'])->name('api.inventory.index'); // Endpoint untuk mengambil semua data inventaris
+Route::post('/store-barcode', [InventoryApiController::class, 'store'])->name('api.store.barcode');

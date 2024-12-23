@@ -6,7 +6,8 @@ import requests
 
 # URL ESP32-CAM (Ganti IP sesuai dengan alamat ESP32-CAM Anda)
 # Pastikan URL ini sesuai dengan alamat IP ESP32 yang sudah terhubung ke jaringan
-esp32_cam_url = "http://192.168.115.64/cam-hi.jpg"  # Ganti dengan IP ESP32 Anda
+# esp32_cam_url = "http://192.168.115.64/cam-hi.jpg"  # Ganti dengan IP ESP32 Anda
+esp32_cam_url = "http://192.168.1.8/cam-hi.jpg"  # Ganti dengan IP ESP32 Anda
 
 # API Endpoint Laravel
 api_endpoint = "http://127.0.0.1:8000/inventory"  # Ganti dengan URL API Laravel Anda

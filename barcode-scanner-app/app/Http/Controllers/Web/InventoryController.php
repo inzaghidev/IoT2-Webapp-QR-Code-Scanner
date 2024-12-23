@@ -26,8 +26,17 @@ class InventoryController extends Controller
         // Hitung total kategori unik
         $total_kategori = Inventory::distinct('kategori_barang')->count('kategori_barang');
     
+        // Tambahkan variabel title
+        $title = "Dashboard";
+
         // Kirim data ke view
-        return view('index', compact('total_barang', 'total_kategori'));
+        return view('index', compact('total_barang', 'total_kategori', 'title'));
+    }
+
+    public function scanner()
+    {
+        $title = "Scanner"; // Set the title for the page
+        return view('scanner', compact('title'));
     }
 
     // Halaman untuk menambah produk baru
@@ -62,9 +71,11 @@ class InventoryController extends Controller
     // Halaman untuk mengedit produk
     public function edit($id)
     {
-        $inventory = Inventory::findOrFail($id); // Ambil satu record berdasarkan ID
+        $inventory = Inventory::findOrFail($id); // Ambil data berdasarkan ID
+        $title = "Edit Produk"; // Tambahkan variabel title
     
-        return view('inventory.edit', compact('inventory')); // Kirim data produk ke view
+        // Kirim data inventory dan title ke view
+        return view('edit_product', compact('inventory', 'title'));
     }
 
     // Menyimpan data yang diubah
@@ -76,11 +87,14 @@ class InventoryController extends Controller
         ]);
 
         $inventory = Inventory::findOrFail($id);
+        $inventory->update($request->all());
+
         $inventory->kategori_barang = $request->input('kategori_barang');
         $inventory->jumlah = $request->input('jumlah');
         $inventory->save();
 
-        return redirect()->route('dashboard')->with('success', 'Data berhasil diubah!');
+        // return redirect()->route('dashboard')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('inventory.index')->with('success', 'Produk berhasil diperbarui!');
     }
 
     // Proses menghapus produk

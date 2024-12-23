@@ -11,8 +11,8 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
-Route::get('/dashboard', [InventoryController::class, 'dashboard']);
+Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
+// Route::get('/dashboard', [InventoryController::class, 'dashboard']);
 
 // Route::get('/dashboard', function () {
 //     return view('index', [
@@ -31,3 +31,5 @@ Route::put('/inventory/{id}', [InventoryController::class, 'update'])->name('inv
 
 // Route untuk menghapus produk
 Route::delete('/inventory/{id}', [InventoryController::class, 'destroy'])->name('inventory.destroy');
+
+Route::get('/scanner', [InventoryController::class, 'scanner'])->name('scanner');
