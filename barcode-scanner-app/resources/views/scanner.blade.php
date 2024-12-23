@@ -43,6 +43,7 @@
     // Refresh gambar live stream setiap 100 ms untuk simulasi video
     const cameraStream = document.getElementById("cameraStream");
     setInterval(() => {
+        // cameraStream.src = "http://192.168.115.64/cam-hi.jpg?" + new Date().getTime(); // Tambahkan timestamp untuk menghindari caching
         cameraStream.src = "http://192.168.1.8/cam-hi.jpg?" + new Date().getTime(); // Tambahkan timestamp untuk menghindari caching
     }, 100);
 
