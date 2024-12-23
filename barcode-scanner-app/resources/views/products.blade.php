@@ -1,6 +1,5 @@
 @extends('layouts.main')
 
-
 @section('container')
 <main>
     <div class="container-fluid px-4">
